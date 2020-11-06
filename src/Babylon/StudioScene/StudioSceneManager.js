@@ -100,6 +100,8 @@ export default class StudioSceneManager {
     this.mainCamera.upperBetaLimit = 1.5;
 
     this.mainCamera.minZ = 0.2;
+    this.mainCamera.target = new BABYLON.Vector3(0, 3, 0)
+
     this.mainCamera.wheelPrecision = 10;
     this.mainCamera.useBouncingBehavior = true;
   }

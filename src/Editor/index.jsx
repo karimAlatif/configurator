@@ -48,11 +48,11 @@ const Editor = () => {
   return (
     <GmContext.Provider value={gameManager}>
       <Row style={{ height: "100%" }} type="flex">
-        <Col span={7}>
+        {/* <Col span={7}>
           <LeftSideMenu
           // styles = {styles}
           />
-        </Col>
+        </Col> */}
         {/* 14 */}
         <Col span={17} style={{ height: "100%" }}>
           {/* <div className="container"> */}
