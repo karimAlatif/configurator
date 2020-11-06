@@ -54,7 +54,7 @@ const Editor = () => {
           />
         </Col>
         {/* 14 */}
-        <Col span={17}>
+        <Col span={17} style={{ height: "100%" }}>
           {/* <div className="container"> */}
           <canvas {...{}} className="canvas" ref={gmRef} />
           {/* <EditorButtons 
