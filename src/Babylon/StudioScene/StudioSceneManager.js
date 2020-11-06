@@ -74,7 +74,7 @@ export default class StudioSceneManager {
     //Installation
     this.createCamera();
     this.setUpEnvironMent();
-
+//s
     //Create LoadManager instance
     this.loaderManager = new LoaderManager(this);
     this.loaderManager.loadMainMesh(); //start load mainBike
