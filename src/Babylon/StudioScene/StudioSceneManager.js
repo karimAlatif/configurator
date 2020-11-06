@@ -1,9 +1,11 @@
 import * as BABYLON from "babylonjs";
+import  LoaderManager  from './LoaderManager';
 // import * as BABYLONMaterials from 'babylonjs-materials';
 import "pepjs";
 import "babylonjs-inspector";
 import "babylonjs-loaders";
 import * as earcut from "earcut";
+
 
 export default class StudioSceneManager {
   constructor(game) {
@@ -74,11 +76,11 @@ export default class StudioSceneManager {
     this.setUpEnvironMent();
 
     //Create LoadManager instance
-    // this.loaderManager = new LoaderManager(this);
-    // this.loaderManager.loadMainBike(); //start load mainBike
+    this.loaderManager = new LoaderManager(this);
+    this.loaderManager.loadMainMesh(); //start load mainBike
 
     // this.scene.debugLayer.show();
-
+// 
     return this.scene;
   }
   createCamera() {
@@ -92,12 +94,14 @@ export default class StudioSceneManager {
     );
     this.mainCamera.attachControl(this.game.canvas, true);
 
-    this.mainCamera.lowerRadiusLimit = 10;
-    this.mainCamera.upperRadiusLimit = 70;
+    this.mainCamera.lowerRadiusLimit = 15;
+    this.mainCamera.upperRadiusLimit = 63;
 
     this.mainCamera.upperBetaLimit = 1.5;
 
     this.mainCamera.minZ = 0.2;
+    this.mainCamera.target = new BABYLON.Vector3(0, 3, 0)
+
     this.mainCamera.wheelPrecision = 10;
     this.mainCamera.useBouncingBehavior = true;
   }
@@ -127,7 +131,7 @@ export default class StudioSceneManager {
     // this.shadowGenerator.forceBackFacesOnly = true;
     // this.shadowGenerator.blurKernel = 32;
     // this.shadowGenerator.depthScale = 150;
-    dirLight.intensity = 0.72;
+    dirLight.intensity = 0.8;
     dirLight.shadowMinZ = 0;
     dirLight.shadowMaxZ = 500;
 
@@ -152,7 +156,7 @@ export default class StudioSceneManager {
     );
     backgroundMaterial.diffuseTexture.hasAlpha = true;
     backgroundMaterial.opacityFresnel = false;
-    backgroundMaterial.shadowLevel = 0.8;
+    backgroundMaterial.shadowLevel = 0.85;
     backgroundMaterial.alpha = 0.3;
 
     //Create CubicTexture
@@ -209,6 +213,10 @@ export default class StudioSceneManager {
   //#endregion
 
   buildCushion(data) {
+
+
+
+    return;
     //width height
     const { width, length, height } = data;
     let curveOffset = 1;
