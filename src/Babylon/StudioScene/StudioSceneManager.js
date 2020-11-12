@@ -1,11 +1,10 @@
 import * as BABYLON from "babylonjs";
-import  LoaderManager  from './LoaderManager';
+import LoaderManager from "./LoaderManager";
 // import * as BABYLONMaterials from 'babylonjs-materials';
 import "pepjs";
 import "babylonjs-inspector";
 import "babylonjs-loaders";
 import * as earcut from "earcut";
-
 
 export default class StudioSceneManager {
   constructor(game) {
@@ -80,7 +79,7 @@ export default class StudioSceneManager {
     this.loaderManager.loadMainMesh(); //start load mainBike
 
     // this.scene.debugLayer.show();
-// 
+    //
     return this.scene;
   }
   createCamera() {
@@ -94,13 +93,13 @@ export default class StudioSceneManager {
     );
     this.mainCamera.attachControl(this.game.canvas, true);
 
-    this.mainCamera.lowerRadiusLimit = 25;
+    this.mainCamera.lowerRadiusLimit = 5;
     this.mainCamera.upperRadiusLimit = 63;
 
     this.mainCamera.upperBetaLimit = 1.5;
 
     this.mainCamera.minZ = 0.2;
-    this.mainCamera.target = new BABYLON.Vector3(0, 3, 0)
+    this.mainCamera.target = new BABYLON.Vector3(0, 0.5, 0);
 
     this.mainCamera.wheelPrecision = 10;
     this.mainCamera.useBouncingBehavior = true;
@@ -180,7 +179,7 @@ export default class StudioSceneManager {
     backgroundMaterial.reflectionTexture.level = 0.8;
     ground.material = backgroundMaterial;
 
-    // var box2 = BABYLON.MeshBuilder.CreateBox("box", { height: 1 }, this.scene);
+    var box2 = BABYLON.MeshBuilder.CreateBox("box", { size: 0.3 }, this.scene);
     // box2.position.y += 0.5;
 
     // //Create RenderPipline
@@ -213,10 +212,6 @@ export default class StudioSceneManager {
   //#endregion
 
   buildCushion(data) {
-
-
-
-    return;
     //width height
     const { width, length, height } = data;
     let curveOffset = 1;
@@ -231,16 +226,75 @@ export default class StudioSceneManager {
       new BABYLON.Vector3(width / 2, 0, length / 2 - curveOffset),
       new BABYLON.Vector3(width / 2, 0, -length / 2),
     ];
-    this.polygon = BABYLON.MeshBuilder.ExtrudePolygon(
-      "customPolypon",
-      { shape: arr, depth: +height, sideOrientation: BABYLON.Mesh.DOUBLESIDE },
-      this.scene,
-      earcut
-    );
-    this.polygon.position.y += height;
+    // this.polygon = BABYLON.MeshBuilder.ExtrudePolygon(
+    //   "customPolypon",
+    //   { shape: arr, depth: +height, sideOrientation: BABYLON.Mesh.DOUBLESIDE },
+    //   this.scene,
+    //   earcut
+    // );
+    // this.polygon.position.y += height;
+    // this.polygon.position.x += 20;
 
-    this.mirror.renderList.push(this.polygon);
-    this.shadowGenerator.addShadowCaster(this.polygon);
+    // this.mirror.renderList.push(this.polygon);
+    // this.shadowGenerator.addShadowCaster(this.polygon);
+
+    //
+    // paths
+    var path1 = [];
+    var path2 = [];
+
+    var path3 = [];
+
+    var path4 = [];
+    var path5 = [];
+
+    path1.push(new BABYLON.Vector3(5, 5, 12));
+    path1.push(new BABYLON.Vector3(5, 5, 5));
+
+    path2.push(new BABYLON.Vector3(1.5, 7.8, 12));
+    path2.push(new BABYLON.Vector3(1.5, 7.8, 5));
+
+    path3.push(new BABYLON.Vector3(0, 8.7, 12));
+    path3.push(new BABYLON.Vector3(0, 8.7, 5));
+
+    path4.push(new BABYLON.Vector3(-1.5, 7.8, 12));
+    path4.push(new BABYLON.Vector3(-1.5, 7.8, 5));
+
+    path5.push(new BABYLON.Vector3(-5, 5, 12));
+    path5.push(new BABYLON.Vector3(-5, 5, 5));
+
+    var catmullRom1 = BABYLON.Curve3.CreateCatmullRomSpline(path1, 10, false);
+    var catmullRom2 = BABYLON.Curve3.CreateCatmullRomSpline(path2, 10, false);
+
+    var catmullRom3 = BABYLON.Curve3.CreateCatmullRomSpline(path3, 10, false);
+
+    var catmullRom4 = BABYLON.Curve3.CreateCatmullRomSpline(path4, 10, false);
+    var catmullRom5 = BABYLON.Curve3.CreateCatmullRomSpline(path5, 10, false);
+
+    var ribbon = BABYLON.MeshBuilder.CreateRibbon(
+      "ribbon22",
+      {
+        pathArray: [
+          catmullRom1.getPoints(),
+          catmullRom2.getPoints(),
+          catmullRom3.getPoints(),
+          catmullRom4.getPoints(),
+          catmullRom5.getPoints(),
+        ],
+      },
+      this.scene
+    );
+
+    let meshMat = new BABYLON.PBRMaterial("pbrMaterial", this.scene);
+    meshMat.albedoColor = new BABYLON.Color3(31 / 255, 31 / 255, 31 / 255);
+    meshMat.backFaceCulling = false;
+    meshMat.metallic = 0.35;
+    meshMat.roughness = 0.4;
+
+    // this.polygon.material = meshMat;
+    ribbon.material = meshMat;
+    ribbon.position.x += 10;
+    ribbon.position.y += 2;
 
     // var polygon = BABYLON.s.ExtrudePolygon("customPolypon", {shape:arr, faceUV:polygonUV, depth:depth, sideOrientation: (doubleFace) ?  BABYLON.Mesh.DOUBLESIDE : BABYLON.Mesh.FRONTSIDE}, this.scene,earcut);
     // polygon.material = material;
