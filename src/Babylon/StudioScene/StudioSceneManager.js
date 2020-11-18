@@ -93,8 +93,8 @@ export default class StudioSceneManager {
     );
     this.mainCamera.attachControl(this.game.canvas, true);
 
-    this.mainCamera.lowerRadiusLimit = 5;
-    this.mainCamera.upperRadiusLimit = 63;
+    this.mainCamera.lowerRadiusLimit = 55;
+    this.mainCamera.upperRadiusLimit = 163;
 
     this.mainCamera.upperBetaLimit = 1.5;
 

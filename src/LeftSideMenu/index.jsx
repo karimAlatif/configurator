@@ -70,7 +70,7 @@ const LeftSideMenu = () => {
             </Title>
 
             <Title level={4} style={{ width: "20%" }}>
-              Point 1
+              Point H
             </Title>
             <Slider
               defaultValue={0}
@@ -79,7 +79,7 @@ const LeftSideMenu = () => {
             />
 
             <Title level={4} style={{ width: "20%" }}>
-              Point 2
+              Point L
             </Title>
             <Slider
               defaultValue={0}
@@ -88,7 +88,7 @@ const LeftSideMenu = () => {
             />
 
             <Title level={4} style={{ width: "20%" }}>
-              Point 3
+              Point TF
             </Title>
             <Slider
               defaultValue={0}
@@ -96,14 +96,14 @@ const LeftSideMenu = () => {
               onChange={(value) => onSliderChange(gameManager, value, 2)}
             />
 
-            <Title level={4} style={{ width: "20%" }}>
+            {/* <Title level={4} style={{ width: "20%" }}>
               Point 4
             </Title>
             <Slider
               defaultValue={0}
               style={{ width: "80%", marginLeft: "10%", marginTop: "20px" }}
               onChange={(value) => onSliderChange(gameManager, value, 3)}
-            />
+            /> */}
           </React.Fragment>
         );
       }}
